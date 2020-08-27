@@ -1,0 +1,26 @@
+{
+    "name": "devorto/mail-mailgun",
+    "description": "Mailgun wrapper based on devorto mailer interface.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Geoffrey Dijkstra",
+            "email": "info@devorto.com",
+            "homepage": "https://www.devorto.com/",
+            "role": "Owner"
+        }
+    ],
+    "require": {
+        "php": "^7.1.0",
+        "devorto/mail": "^3.0.0",
+        "mailgun/mailgun-php": "^3.0.0",
+        "nyholm/psr7": "^1.2.0",
+        "kriswallsmith/buzz": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Devorto\\MailMailgun\\": "src/"
+        }
+    }
+}
