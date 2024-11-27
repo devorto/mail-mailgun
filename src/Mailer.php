@@ -8,8 +8,8 @@ use Devorto\Mail\Mailer as MailerInterface;
 use Devorto\Mail\Recipient;
 use InvalidArgumentException;
 use Mailgun\Mailgun;
-use Mailgun\Model\Message\SendResponse;
 use RuntimeException;
+use Throwable;
 
 /**
  * Class Mailer
@@ -21,12 +21,12 @@ class Mailer implements MailerInterface
     /**
      * @var Mailgun
      */
-    protected $mailer;
+    protected Mailgun $mailer;
 
     /**
      * @var string
      */
-    protected $domain;
+    protected string $domain;
 
     /**
      * Mailer constructor.
@@ -87,9 +87,10 @@ class Mailer implements MailerInterface
             $data['attachment'] = array_map([static::class, 'renderAttachments'], $mail->getAttachments());
         }
 
-        $response = $this->mailer->messages()->send($this->domain, $data);
-        if (!($response instanceof SendResponse)) {
-            throw new RuntimeException('Sending email failed.');
+        try {
+            $this->mailer->messages()->send($this->domain, $data);
+        } catch (Throwable $throwable) {
+            throw new RuntimeException('Sending email failed.', 0, $throwable);
         }
     }
 
